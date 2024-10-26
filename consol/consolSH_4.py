@@ -9,7 +9,6 @@ try:
     import psutil 
     import requests
     import math
-    import datetime
     import platform
     import keyboard
     from pyfiglet import Figlet
@@ -57,6 +56,19 @@ sreda="SH"
 
 cd_udirect=0#не удалять not delete
 vare={}
+#установачные пакеты
+path ={
+    'calk_m' : "https://github.com/xHak2215/calk_m",
+    'pynet': "https://github.com/xHak2215/py.net",
+    
+    
+}
+
+    
+
+
+     
+
 
 
 def calc():
@@ -186,15 +198,12 @@ def ping(ping_url)->int:
     response=time.time() - start_time
 #    print('ping',response)
     return response
-      
+
 def admin() ->str:
-   try:
     if os.getcwd() == "C:\Windows\system32":
         return True
     else:
         return False
-   except AttributeError:  
-     return ctypes.windll.shell32.IsUserAnAdmin() != 0
 if title == 1:
     os.system("cls")
     print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
@@ -258,11 +267,11 @@ while True:
             print(f"Директория {directory_name} не найдена")
     elif command == 'help':
         if lang == "ru":
-            print(' "dir" - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n vuod - запуск и передачя даных в программу \n  ')
-            print("  del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n" )
+            print('"dir" - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n vuod - запуск и передачя даных в программу \n  color - изменение цвета \n apt - установщик пакетов на основе pip (apt -h для списка покетов также можно просто вписать сыллку на github) \n ')
+            print(" del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n taskill - завершение процессов \n color - color change \n apt - pip-based package installer (apt -h for a list of packages you can also just enter a link to github) \n " )
         elif lang == "eng":
-            print(' "dir" - (show the contents of the current directory),\n cm <directory name> - (create directory), \n vuod - запуск и передачя даных в програму')
-            print(" del <directory name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n ")
+            print(' "dir" - (show the contents of the current directory),\n cm <directory name> - (create directory), \n vuod - launch and transfer data to the program \n ')
+            print(" del <directory name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n taskill - end process \n ")
     elif command.startswith("cd"):
         try:
             directory_name = command.split(" ")[1]
@@ -415,6 +424,11 @@ while True:
         print(mein_direct)
     elif command.startswith("apt"):
         url=command.split(" ")[1]
+        os.chdir(f"{mein_direct}\\cd\\path_file")
+        if url in list(path.keys()):
+            url=path[url]
+            print(f"install path in {kast} {url} ")
+        os.system(f"{mein_direct}\\cd\\pip3.12.exe download  git+{url}")
 
         
         
@@ -423,4 +437,4 @@ while True:
         if lang =="ru":
             print("error 1 команды нет")
         elif lang =="eng":
-            print("error 1 not command") 
+            print("error 1 not command")
