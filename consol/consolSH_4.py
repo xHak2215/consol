@@ -332,14 +332,14 @@ while True:
             except KeyError:
                 print('not var')
         print(printe)    
-    elif command.startswith("var"):#var=переменая=данные
+    elif command.startswith("var="):#var=переменая=данные
         var = command.split("=")[1]
         var_name = command.split("=")[2]
         vare[var] = var_name
         if log_actived == 1:
             logger.debug(f"var list {vare}")
     elif command.startswith("var delete"):
-        var=command.split(" ")
+        var=command.split(" ")[1]
         del vare[var]
     elif command == "date":
         print (datetime.datetime.now())
@@ -428,8 +428,18 @@ while True:
         if url in list(path.keys()):
             url=path[url]
             print(f"install path in {kast} {url} ")
-        os.system(f"{mein_direct}\\cd\\pip3.12.exe download  git+{url}")
-
+        os.system(f"{mein_direct}\\cd\\pip3.12.exe download git+{url}")
+#    elif command.startswith(list(vare.keys())):#задаем переменую без комманды var
+#        var=command.split("=")[0]
+#        vars=command.split("=")[1]#даделать
+#        vare[var]=vars
+    elif command =="varslist":
+        print(list(vare.keys()))
+    elif command.startswith('path'):
+        p=command.split(" ")[1]
+        os.chdir(f"{mein_direct}\\cd\\path_file")
+        os.system(f"{mein_direct}\\cd\\pip3.12.exe show {p}")
+        
         
         
         
