@@ -15,6 +15,7 @@ try:
     from subprocess import Popen, PIPE, STDOUT     
     import subprocess as sp
     import ctypes
+    import pyautogui
 #   subprocess.call(['python.exe' '-m' 'pip' 'install' '--upgrade pip'])
     modul_neim=['pip','requests','psutil']
 except ImportError:
@@ -41,7 +42,7 @@ except ImportError:
 lang ="ru"
 #directore
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
-mein_direct.encode("utf-8")
+#mein_direct=mein_direct.encode("utf-8")
 #logs;on-1,off-0
 log_actived=0
 #log saveс
@@ -151,6 +152,9 @@ def scansystem(key):
         return disk_info
     # Генерируем отчет
     def generate_report():
+        
+        system=preview_text.renderText(platform.system())
+        
         report = "=== System Report ===\n"
         report += get_system_info() + "\n"
         report += "=== CPU Report ===\n"
@@ -160,7 +164,7 @@ def scansystem(key):
         report += "=== Disk Report ===\n"
         report += get_disk_info() + "\n"
         report += "Report generated on: " + str(datetime.datetime.now())
-        return report
+        return report,system
     report=generate_report()
     print(report)
     if key =="seve":
@@ -176,13 +180,14 @@ def scansystem(key):
 def sreda_cmd(command):
     while True:      
         p = subprocess.Popen(
-            [command,"sh" ],  # Используем 'sh' для запуска оболочки
+            ['cmd',"sh" ],  # Используем 'sh' для запуска оболочки
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True  # Позволяет работать со строками вместо байтов
             )
-        print(p)
+        stdout,stderr = p.communicate(command)
+        print(stdout) 
             
 def ping(ping_url)->int:
     start_time = time.time()
@@ -199,8 +204,8 @@ def ping(ping_url)->int:
 #    print('ping',response)
     return response
 
-def admin() ->str:
-    if os.getcwd() == "C:\Windows\system32":
+def admin()->bool:
+    if os.getcwd() == "C:/Windows/system32":
         return True
     else:
         return False
@@ -211,8 +216,7 @@ if title == 1:
 interhek()
 app =""
 
-
-
+ 
 while True:
     if log_actived == 1:
         logger.add(backtrace=True, diagnose=True)
@@ -267,11 +271,11 @@ while True:
             print(f"Директория {directory_name} не найдена")
     elif command == 'help':
         if lang == "ru":
-            print('"dir" - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n vuod - запуск и передачя даных в программу \n  color - изменение цвета \n apt - установщик пакетов на основе pip (apt -h для списка покетов также можно просто вписать сыллку на github) \n ')
-            print(" del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n taskill - завершение процессов \n color - color change \n apt - pip-based package installer (apt -h for a list of packages you can also just enter a link to github) \n " )
+            print(' dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n ')
+            print(" del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' " )
         elif lang == "eng":
-            print(' "dir" - (show the contents of the current directory),\n cm <directory name> - (create directory), \n vuod - launch and transfer data to the program \n ')
-            print(" del <directory name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n taskill - end process \n ")
+            print(' dir - (show the contents of the current directory),\n cm <directory name> - (create directory), \n vuod - launch and transfer data to the program \n color - color change ')
+            print(" del <directory name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n taskill - end process \n pip - pip-'command' ")
     elif command.startswith("cd"):
         try:
             directory_name = command.split(" ")[1]
@@ -360,6 +364,7 @@ while True:
         os.system('cls')        
     elif command.startswith("vuod"):
         directory=command.split(" ")[1]
+        directory=directory.split(" ")[0]
         comand=command.split(" ")[2]
         os.chdir(mein_direct)
         p = subprocess.Popen(
@@ -369,6 +374,8 @@ while True:
             stderr=subprocess.PIPE,
             text=True  # Позволяет работать со строками вместо байтов
             )
+        stdout,stderr = p.communicate(f"{directory_name}")
+        print(stdout)
         if cd_udirect != 0:
             os.chdir(cd_udirect)
         
@@ -394,13 +401,14 @@ while True:
             except:
                 print("error not color")
     elif command.startswith("corsemove"):
-        try:
-            import pyautogui
-        except:
-            print("not lib pyautogui")
-        x=command.split(":")[1]     #corsemove:x:y
+        x=command.split(":")[1] #corsemove:x:y
+        x=x.split(":")[0]
         y=command.split(":")[2]
-        pyautogui.moveRel(x,y, duration=0.25)
+        print(x)
+        print(y)
+        pyautogui.PAUSE = True
+        pyautogui.FAILSAFE = True
+        for i in range(1):pyautogui.moveRel(x,y, duration=0.)
     elif command =="corsekordxy":
         try:
             import pyautogui
@@ -425,9 +433,12 @@ while True:
     elif command.startswith("apt"):
         url=command.split(" ")[1]
         os.chdir(f"{mein_direct}\\cd\\path_file")
-        if url in list(path.keys()):
-            url=path[url]
-            print(f"install path in {kast} {url} ")
+        if url =="-p":
+            print(path.keys())
+        else:
+            if url in list(path.keys()):
+                url=path[url]
+                print(f"install path in {kast} {url} ")
         os.system(f"{mein_direct}\\cd\\pip3.12.exe download git+{url}")
 #    elif command.startswith(list(vare.keys())):#задаем переменую без комманды var
 #        var=command.split("=")[0]
@@ -439,8 +450,18 @@ while True:
         p=command.split(" ")[1]
         os.chdir(f"{mein_direct}\\cd\\path_file")
         os.system(f"{mein_direct}\\cd\\pip3.12.exe show {p}")
+        if cd_udirect != 0:
+                os.chdir(cd_udirect)
+    elif command.startswith('pip'):
+        p=command.split("-")[1]
+        os.chdir(f"{mein_direct}\\cd\\path_file")
+        os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
+        if cd_udirect != 0:
+            os.chdir(cd_udirect)
+    
+    
         
-        
+    
         
         
     else:
