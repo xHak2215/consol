@@ -44,7 +44,7 @@ lang ="ru"
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
 #mein_direct=mein_direct.encode("utf-8")
 #logs;on-1,off-0
-log_actived=0
+log_actived=1
 #log saveс
 log_save=0
 # custom
@@ -66,8 +66,17 @@ path ={
 }
 
     
-
-
+if lang =="ru":
+    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
+ del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n
+ taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)'''
+elif lang=="eng":
+    HELP=''' dir - (show the contents of the current directory),\n cm <directory name> - (create directory), 
+\n vuod - launch and transfer data to the program \n color - color change 
+ del <directory name> - (delete directory). \n pwd - ticking repository \n
+ bash - execution of bash scripts \n taskill - end process \n pip - pip-'command' '''
+else:
+    print("not lange")
      
 
 
@@ -219,10 +228,10 @@ app =""
  
 while True:
     if log_actived == 1:
-        logger.add(backtrace=True, diagnose=True)
         from loguru import logger
+        
         logger.debug(f"logs on {log_actived}")
-        logger.add(sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO")
+        logger.add(sys.stderr, format="{time} {level} {message} {error}", filter="comsol(mein file)", level="INFO")
         if log_save == 1:
             logger.add("log_console.log", compression="zip") 
     #гарячие клавишы 
@@ -270,12 +279,7 @@ while True:
         except FileNotFoundError:
             print(f"Директория {directory_name} не найдена")
     elif command == 'help':
-        if lang == "ru":
-            print(' dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n ')
-            print(" del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' " )
-        elif lang == "eng":
-            print(' dir - (show the contents of the current directory),\n cm <directory name> - (create directory), \n vuod - launch and transfer data to the program \n color - color change ')
-            print(" del <directory name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n taskill - end process \n pip - pip-'command' ")
+        print(HELP)
     elif command.startswith("cd"):
         try:
             directory_name = command.split(" ")[1]
@@ -355,11 +359,16 @@ while True:
                 scansystem(key)
             except IndexError:
                 scansystem(0)
-        elif key =="off":
+        elif key =="off"or key=="poweroff":
             if platform.system() =='Windows':
                 os.system('shutdown -s')
             elif platform.system() =='Linux':
                 os.system('poweroff')
+        elif key.startswith("start"):
+            directory=key.split(' ')[1]
+            os.system(f'start "consolSHProcess"{directory} ')
+            
+
     elif command =="cls":
         os.system('cls')        
     elif command.startswith("vuod"):
@@ -469,3 +478,7 @@ while True:
             print("error 1 команды нет")
         elif lang =="eng":
             print("error 1 not command")
+        else:
+            print("error 1 not command")
+        if log_actived==1:
+            logger.debug(f"not command {kast} {command}")
