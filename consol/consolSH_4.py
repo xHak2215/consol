@@ -36,15 +36,13 @@ except ImportError:
 # Настройка\settings
 # open:
 #openp = ["txt", "bat", "exe", "jpg", "png", "wav", "mp3"]
-# cmd
-#cmd = 'CMD_consol_sh.bat'
 #язык (в разрабоьке) ru - русский eng - English;  shitty translation from me and google
 lang ="ru"
 #directore
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
 #mein_direct=mein_direct.encode("utf-8")
 #logs;on-1,off-0
-log_actived=1
+log_actived=0
 #log saveс
 log_save=0
 # custom
@@ -68,13 +66,12 @@ path ={
     
 if lang =="ru":
     HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n
+ del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)'''
 elif lang=="eng":
-    HELP=''' dir - (show the contents of the current directory),\n cm <directory name> - (create directory), 
-\n vuod - launch and transfer data to the program \n color - color change 
- del <directory name> - (delete directory). \n pwd - ticking repository \n
- bash - execution of bash scripts \n taskill - end process \n pip - pip-'command' '''
+    HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
+del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n
+taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)'''
 else:
     print("not lange")
      
@@ -201,14 +198,16 @@ def sreda_cmd(command):
 def ping(ping_url)->int:
     start_time = time.time()
     try:
-        k=requests.get(ping_url)
-        s=k.status_code
-        if s== 200:
-            pass
-        else:
-            return "not"
-    except requests.exceptions.InvalidURL:
-        return f"Invalid url {kast}{ping_url}"
+        try:
+            k=requests.get(ping_url)
+            s=k.status_code
+            if s== 200:
+                pass
+            else:
+                return "not"
+        except requests.exceptions.InvalidURL:
+            return f"Invalid url {kast}{ping_url}"
+    except requests.exceptions.ConnectionError: return "not conect"
     response=time.time() - start_time
 #    print('ping',response)
     return response
@@ -242,14 +241,16 @@ while True:
         adm = "#"
     else:
         adm = "~"
-
-    command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
-    command=command.lower()
-    if sreda == "SH":
+    try:
+        command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
+        command=command.lower()
+        if sreda == "SH":
+            pass
+        elif sreda =="cmd":
+                sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
+    except KeyboardInterrupt:
         pass
-    elif sreda =="cmd":
-            sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
-    
+        if log_actived ==1:logger.debug(f"error {kast} KeyboardInterrupt")
     
     if command == "break":
         break
@@ -467,7 +468,9 @@ while True:
         os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
         if cd_udirect != 0:
             os.chdir(cd_udirect)
-    
+    elif command.startswith("eval"):
+        command=command.split(" ")[1]
+        print(eval(command))
     
         
     
