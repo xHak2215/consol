@@ -66,11 +66,11 @@ path ={
     
 if lang =="ru":
     HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal )
+ del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)'''
 elif lang=="eng":
     HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
-del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal)
+del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n
 taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)'''
 else:
     print("not lange")
@@ -381,7 +381,7 @@ while True:
     elif command.startswith("vuod"):
         directory=command.split(" ")[1]
         directory=directory.split(" ")[0]
-        comand=command.split(" ")[2]
+        command=command.split(" ")[2]
         os.chdir(mein_direct)
         p = subprocess.Popen(
             [directory,"sh" ],  # Используем 'sh' для запуска оболочки
@@ -395,7 +395,7 @@ while True:
         if cd_udirect != 0:
             os.chdir(cd_udirect)
         
-        stdout,stderr = p.communicate(comand)
+        stdout,stderr = p.communicate(command)
         print(stdout) 
     elif command.startswith("color"):
         color=command.split(" ")[1]   
@@ -465,22 +465,41 @@ while True:
     elif command =="varslist":
         print(list(vare.keys()))
     elif command.startswith('path'):
-        p=command.split(" ")[1]
-        os.chdir(f"{mein_direct}\\cd\\path_file")
-        os.system(f"{mein_direct}\\cd\\pip3.12.exe show {p}")
-        if cd_udirect != 0:
-                os.chdir(cd_udirect)
+        try:
+            p=command.split(" ")[1]
+            os.chdir(f"{mein_direct}\\cd\\path_file")
+            os.system(f"{mein_direct}\\cd\\pip3.12.exe show {p}")
+            if cd_udirect != 0:
+                    os.chdir(cd_udirect)
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
     elif command.startswith('pip'):
-        p=command.split("-")[1]
-        os.chdir(f"{mein_direct}\\cd\\path_file")
-        os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
-        if cd_udirect != 0:
-            os.chdir(cd_udirect)
+        try:
+            p=command.split("-")[1]
+            os.chdir(f"{mein_direct}\\cd\\path_file")
+            os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
+            if cd_udirect != 0:
+                os.chdir(cd_udirect)
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
     elif command.startswith("eval"):
-        command=command.split(" ")[1]
-        print(eval(command))
+        try:
+            command=command.split(" ")[1]
+            print(eval(command))
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
+        
     elif command.startswith("consol"):
         os.system(command.split(" ")[1])
+    elif command == "datatime":
+        import datetime
+        print(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
         
     
         
