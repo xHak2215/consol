@@ -14,7 +14,7 @@ try:
     from pyfiglet import Figlet
     from subprocess import Popen, PIPE, STDOUT     
     import subprocess as sp
-    import ctypes
+#    import ctypes
     import pyautogui
 #   subprocess.call(['python.exe' '-m' 'pip' 'install' '--upgrade pip'])
     modul_neim=['pip','requests','psutil']
@@ -66,11 +66,11 @@ path ={
     
 if lang =="ru":
     HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n
+ del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal )
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)'''
 elif lang=="eng":
     HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
-del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n
+del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal)
 taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)'''
 else:
     print("not lange")
@@ -267,7 +267,13 @@ while True:
         while True:
             try:
                 os.mkdir(directory_name)
-                print(f"Создана директория{kast} {directory_name}")
+                if lang =="ru":
+                    print(f"Создана директория{kast} {directory_name}")
+                elif lang =='eng':
+                    print(f'Directory created {kast} {directory_name}')
+                else:
+                    if log_actived=="1":
+                        logger.debug(f"not lang {lang}")
                 break
             except FileExistsError:
                 a=a+1
@@ -441,15 +447,17 @@ while True:
     elif command== "mein direct":
         print(mein_direct)
     elif command.startswith("apt"):
-        url=command.split(" ")[1]
+        Key=command.split(" ")[1]
         os.chdir(f"{mein_direct}\\cd\\path_file")
-        if url =="-p":
+        if key.startswith("-p"):
             print(path.keys())
-        else:
+        elif key.startswith("-i"):
+            ulr=key.split("-i")[1]
             if url in list(path.keys()):
                 url=path[url]
                 print(f"install path in {kast} {url} ")
-        os.system(f"{mein_direct}\\cd\\pip3.12.exe download git+{url}")
+        os.system(f"{mein_direct}\\cd\\pip3.12.exe install git+{url}")
+        
 #    elif command.startswith(list(vare.keys())):#задаем переменую без комманды var
 #        var=command.split("=")[0]
 #        vars=command.split("=")[1]#даделать
@@ -471,6 +479,9 @@ while True:
     elif command.startswith("eval"):
         command=command.split(" ")[1]
         print(eval(command))
+    elif command.startswith("consol"):
+        os.system(command.split(" ")[1])
+        
     
         
     
