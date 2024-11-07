@@ -34,8 +34,6 @@ except ImportError:
         raise SystemExit("error fail 1")
 
 # Настройка\settings
-# open:
-#openp = ["txt", "bat", "exe", "jpg", "png", "wav", "mp3"]
 #язык (в разрабоьке) ru - русский eng - English;  shitty translation from me and google
 lang ="ru"
 #directore
@@ -50,7 +48,7 @@ preview_text = Figlet(font='slant')
 #consol title
 consoledTitle="consolSH"
 title = 1# 1 - title on 0 - title off
-#сруда исполнения SH-мая кансоль cmd-кансоль виндовс 
+#среда исполнения SH-мая кансоль cmd-кансоль виндовс 
 sreda="SH"
 
 cd_udirect=0#не удалять not delete
@@ -62,6 +60,10 @@ path ={
     
     
 }
+
+
+if log_actived == 1:
+    from loguru import logger
 
     
 if lang =="ru":
@@ -220,19 +222,29 @@ def admin()->bool:
 if title == 1:
     os.system("cls")
     print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
-    print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
+    if lang =="ru":
+        print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
+    if lang =="eng":
+        print("WELCOM FROM consolSH :)")
+    else:
+        if log_actived==1:
+            logger.debug(f"not lang {lang}")
+            if log_save == 1:
+                logger.add("log_console.log", compression="zip",rotation="500 MB") 
+            
+        
 interhek()
 app =""
 
  
 while True:
     if log_actived == 1:
-        from loguru import logger
         
         logger.debug(f"logs on {log_actived}")
         logger.add(sys.stderr, format="{time} {level} {message} {error}", filter="comsol(mein file)", level="INFO")
         if log_save == 1:
-            logger.add("log_console.log", compression="zip") 
+
+            logger.add("log_console.log", compression="zip",rotation="500 MB") 
     #гарячие клавишы 
     keyboard.add_hotkey("ctrl+q", lambda: exit)
     
@@ -254,7 +266,7 @@ while True:
     
     if command == "break":
         break
-    elif command == "dir":
+    elif command == "dir" or command == "ls":
         dir=os.listdir()
         i = 0
         while i < len(dir):
@@ -300,14 +312,18 @@ while True:
         print (datetime.datetime.now())
 #        subprocess.call(["ping", "-c", "3", "google.com"])
     elif command == "exit": 
-        if lang =="ru":
-            print("Выход из syshab")
-            print (":( уже уходиш...")
-            exit()     
-        elif lang =="eng":
-            print("exit is syshab")
-            print (":( you're leaving already...")
-            exit()   
+        try:
+            if lang =="ru":
+                print("Выход из syshab")
+                print (":( уже уходиш...")
+                exit()     
+            elif lang =="eng":
+                print("exit is syshab")
+                print (":( you're leaving already...")
+                exit()   
+        except PermissionError:
+            file = open("log_console.log") #закрытие лог файла
+            file.close()
     elif command.startswith("bash"):
         directory_name = command.split(" ")[1]
         if platform.system() =='Linux':
@@ -447,17 +463,21 @@ while True:
     elif command== "mein direct":
         print(mein_direct)
     elif command.startswith("apt"):
-        Key=command.split(" ")[1]
-        os.chdir(f"{mein_direct}\\cd\\path_file")
-        if key.startswith("-p"):
-            print(path.keys())
-        elif key.startswith("-i"):
-            ulr=key.split("-i")[1]
-            if url in list(path.keys()):
-                url=path[url]
-                print(f"install path in {kast} {url} ")
-        os.system(f"{mein_direct}\\cd\\pip3.12.exe install git+{url}")
-        
+        try:
+            Key=command.split(" ")[1]
+            os.chdir(f"{mein_direct}\\cd\\path_file")
+            if key.startswith("-p"):
+                print(path.keys())
+            elif key.startswith("-i"):
+                ulr=key.split("-i")[1]
+                if url in list(path.keys()):
+                    url=path[url]
+                    print(f"install path in {kast} {url} ")
+            os.system(f"{mein_direct}\\cd\\pip3.12.exe install git+{url}")
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
 #    elif command.startswith(list(vare.keys())):#задаем переменую без комманды var
 #        var=command.split("=")[0]
 #        vars=command.split("=")[1]#даделать
