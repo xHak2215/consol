@@ -1,12 +1,7 @@
 
 <a id="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 
 
@@ -14,8 +9,8 @@
 
 <br />
 <div align="center">
-  <a href="https://iimg.su/i/KXEGh">
-    <img src="https://github.com/xHak2215/consol" alt="ico" width="80" height="80">
+  <a href="https://github.com/xHak2215/consol">
+    <img src="srk/ico_imdge.png" alt="ico" width="80" height="80">
   </a>
 
   <h3 align="center">consolSH</h3>
@@ -47,11 +42,11 @@
 
 
 <!-- consolSH -->
-** информация**
+** информация
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-##установка:
+**установка:
 
 для работы приложения необходим python 3.12v или выше  
 
