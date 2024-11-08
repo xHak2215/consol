@@ -41,17 +41,7 @@
   </ol>
 </details>
 
-<details>
-  <summary>автор</summary>
-  <ol>
-     <li>
-        <a href="#about-the-project">основной проект</a>
-        <ul>
-          <li><a href="https://t.me/HITHELL">telegram</a></li>
-        </ul>
-      </li>
-  </ol>
-</details>
+
 
 
 
