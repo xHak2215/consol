@@ -34,7 +34,7 @@
       <ul>
       <lo><a href="#about-the-project">основной проект</a>
       </ul><ul>
-      <li><a href="https://t.me/HITHELL">telegram</a>
+      <lo><a href="https://t.me/HITHELL">telegram</a>
       </ul>
     </li>
   </ol>
