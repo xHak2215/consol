@@ -31,9 +31,9 @@
 </div>
 
 
-<!-- автор -->
+
 <details>
-  <summary>Table of Contents</summary>
+  <summary>автор</summary>
   <ol>
     <li>
       <a href="#about-the-project">основной проект</a>
@@ -47,7 +47,7 @@
 
 
 <!-- consolSH -->
-## информация
+** информация**
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -59,7 +59,7 @@
 git clone https://github.com/xHak2215/consol
 ```
 или просто  <a href="https://github.com/xHak2215/consol/archive/refs/heads/main.zip">скачять</a> 
-#затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!
+*затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!*
 
 
 потдержываемые системы:
