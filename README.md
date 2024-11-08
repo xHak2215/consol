@@ -63,7 +63,9 @@ git clone https://github.com/xHak2215/consol
 * windows
 * Linux
 
-
+патдержывекмые языки:
+*Русский
+*англиский(не полный перевод)
 
 
 
