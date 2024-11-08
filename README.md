@@ -20,15 +20,6 @@
 
   <h3 align="center">consolSH</h3>
 
-  <p align="center">
-
-    <br />
-    <a href="https://github.com/xHak2215/consol"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/xHak2215/consol/tree/main/consol">View Demo</a>
-  </p>
-</div>
 
 
 
@@ -71,6 +62,7 @@ git clone https://github.com/xHak2215/consol
 
 
 <p align="right">(<a href="#readme-top">верх</a>)</p>
+
 
 
 
