@@ -32,7 +32,7 @@
   <ol>
     <li>
       <ul>
-      <a href="#about-the-project">основной проект</a>
+      <lo><a href="#about-the-project">основной проект</a></lo>
       </ul><ul>
       <li><a href="https://t.me/HITHELL">telegram</a></li>
       </ul>
