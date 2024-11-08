@@ -34,6 +34,7 @@
       <a href="#about-the-project">основной проект</a>
       <ul>
       <a href="https://t.me/HITHELL">телеграм</a>
+      <ul>
     <li>
 
   </ol>
