@@ -21,7 +21,7 @@
     <a href="https://github.com/xHak2215/consol"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/xHak2215/consol/tree/main/consol">View Demo</a>
+    <li><a href="https://github.com/xHak2215/consol/tree/main/consol">View Demo</a></li>
   </p>
 </div>
 
