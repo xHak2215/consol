@@ -32,31 +32,34 @@ except ImportError:
             print('нет так нет в ручную')
     except IOError:
         raise SystemExit("error fail 1")
+    
+    
+try:
+    from settings import *
+except ModuleNotFoundError:
+    # Настройка\settings
+    #язык (в разрабоьке) ru - русский eng - English;  shitty translation from me and google
+    lang ="ru"
+    #logs;on-1,off-0
+    log_actived=0
+    #log saveс
+    log_save=0
+    # custom
+    preview_text = Figlet(font='slant')
+    #consol title
+    consoledTitle="consolSH"
+    title = 1# 1 - title on 0 - title off
+    #среда исполнения SH-мая кансоль cmd-кансоль виндовс 
+    sreda="SH"
 
-# Настройка\settings
-#язык (в разрабоьке) ru - русский eng - English;  shitty translation from me and google
-lang ="ru"
-#directore
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
-#mein_direct=mein_direct.encode("utf-8")
-#logs;on-1,off-0
-log_actived=0
-#log saveс
-log_save=0
-# custom
-preview_text = Figlet(font='slant')
-#consol title
-consoledTitle="consolSH"
-title = 1# 1 - title on 0 - title off
-#среда исполнения SH-мая кансоль cmd-кансоль виндовс 
-sreda="SH"
 
 cd_udirect=0#не удалять not delete
 vare={}
 #установачные пакеты
 path ={
     'calk_m' : "https://github.com/xHak2215/calk_m",
-    'pynet': "https://github.com/xHak2215/py.net",
+    'pynet': "https://github.com/xHak2215/py.net", 
     
     
 }
@@ -69,11 +72,15 @@ if log_actived == 1:
 if lang =="ru":
     HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
  del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
- taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)'''
+ taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)
+ 
+ '''
 elif lang=="eng":
     HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
 del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n
-taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)'''
+taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)
+
+'''
 else:
     print("not lange")
      
@@ -123,13 +130,15 @@ def interhek():
         ulrinethek = requests.get('https://ya.ru/')
         if ulrinethek.status_code == 200:
             print('conekt internet')
-        elif ulrinethek.status_code == 404:
+        elif ulrinethek.status_code != 200:
             print('Not conekt https://ya.ru/')
+            print("error inet 1")
             ulrinethek = requests.get('https://www.google/')
         if ulrinethek.status_code == 200:
             print('conect internet')
-        elif ulrinethek.status_code == 404:
+        elif ulrinethek.status_code != 200:
             print('Not conekt https://www.google/')
+            print("error inet 1")
     except  requests.exceptions.Timeout:
         print('Not conekt error time out')   
 def scansystem(key):
@@ -473,6 +482,10 @@ while True:
                 if url in list(path.keys()):
                     url=path[url]
                     print(f"install path in {kast} {url} ")
+            if True == os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
+                    if log_actived ==1:
+                        logger.debug(f"error pip")
+                    print("error pip файл pip3.12.exe не найден проверьте его наличие подробнее в info.txt")
             os.system(f"{mein_direct}\\cd\\pip3.12.exe install git+{url}")
         except IndexError :
             print('error arg')
@@ -499,7 +512,14 @@ while True:
         try:
             p=command.split("-")[1]
             os.chdir(f"{mein_direct}\\cd\\path_file")
-            os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
+            error=os.system(f"{mein_direct}\\cd\\pip3.12.exe {p}")
+            if error !=0:
+                print('вазникла проблема с pip ')
+                #os.path.exists(f"start {mein_direct}\\cd\\pip3.12.exe")
+                if True == os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
+                    if log_actived ==1:
+                        logger.debug(f"error pip")
+                    print("error pip файл pip3.12.exe не найден проверьте его наличие подробнее в info.txt")
             if cd_udirect != 0:
                 os.chdir(cd_udirect)
         except IndexError :
