@@ -14,12 +14,21 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/xHak2215/consol">
-    <img src="https://iimg.su/i/KXEGh" alt="ico" width="80" height="80">
+  <a href="https://iimg.su/i/KXEGh">
+    <img src="https://github.com/xHak2215/consol" alt="ico" width="80" height="80">
   </a>
 
   <h3 align="center">consolSH</h3>
 
+  <p align="center">
+    consol
+    <br />
+    <a href="https://github.com/xHak2215/consol"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/xHak2215/consol/tree/main/consol">View Demo</a>
+  </p>
+</div>
 
 
 
@@ -62,7 +71,6 @@ git clone https://github.com/xHak2215/consol
 
 
 <p align="right">(<a href="#readme-top">верх</a>)</p>
-
 
 
 
