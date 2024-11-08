@@ -33,10 +33,10 @@
     <li>
       <ul>
       <a href="#about-the-project">основной проект</a>
-      <ul><ul>
+      </ul><ul>
       <li><a href="https://t.me/HITHELL">telegram</a></li>
-      <ul>
-    <li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -46,7 +46,6 @@
 <!-- consolSH -->
 ** информация
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 **установка:
 
