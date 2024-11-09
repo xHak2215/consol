@@ -73,7 +73,7 @@ git clone https://github.com/xHak2215/consol
 
 
 
-<p align="right">(<a href="#readme-top">верх</a>)</p>
+<p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
 
 
 
