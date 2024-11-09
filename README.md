@@ -74,7 +74,28 @@ git clone https://github.com/xHak2215/consol
 <h2>настройка</h2>
 
 настройки храняться в файле <a href="https://github.com/xHak2215/consol/blob/main/consol/settings.py">settings.py</a>(примечание переименовывать файл не льзя)
-при не нохождении файла будут использываны настройки по умолчянию
+<h3>при не нохождении файла будут использываны настройки по умолчянию</h3>
+<h3>сам файл</h3>
+```settings.py
+#язык (в разроботке) ru - русский , eng - English;
+lang ="ru"
+#logs;on-1,off-0
+log_actived=0
+#log save
+log_save=0
+# custom
+try:
+    from pyfiglet import Figlet
+    preview_text = Figlet(font='slant')
+except:
+    preview_text=str(hex('slant'))#самнительно. . .
+#consol title
+consoledTitle="consolSH"
+title = 1# 1 - title on 0 - title off
+#среда исполнения SH-мая консоль cmd-консоль виндовс или Линукс в зависимости от системы
+sreda="SH"
+```
+<h3></h3>
 
 <p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
 
