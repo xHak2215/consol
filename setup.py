@@ -2,7 +2,7 @@ import os
 import platform
 py='python.exe'
 pip="pip3.12.exe install -r requirements.txt"
-if platform.system() =='Linux':#LInuks setup
+if platform.system() =='Linux':#LInux setup
     py='python3.exe'
     pip="pip install -r requirements.txt"
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
