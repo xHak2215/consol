@@ -71,7 +71,9 @@ git clone https://github.com/xHak2215/consol
 * Русский
 * англиский(не полный перевод)
 
+<h2>настройка</h2>
 
+настройки храняться в файле <a href="https://github.com/xHak2215/consol/blob/main/consol/settings.py">settings.py</a>(примечание переименовывать файл не льзя)
 
 <p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
 
