@@ -60,7 +60,7 @@ git clone https://github.com/xHak2215/consol
 или просто  <a href="https://github.com/xHak2215/consol/archive/refs/heads/main.zip">скачять</a> 
 *затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!*
 
-за тем посоветую почитать файл info.txt
+за тем посоветую почитать файл<a href="https://github.com/xHak2215/consol/tree/main/consol"> info.txt</a>
 
 
 потдержываемые системы:
