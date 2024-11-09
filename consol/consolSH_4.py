@@ -51,12 +51,13 @@ except ModuleNotFoundError:
     title = 1# 1 - title on 0 - title off
     #среда исполнения SH-мая кансоль cmd-кансоль виндовс 
     sreda="SH"
+    print("use um")
 
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
 
 cd_udirect=0#не удалять not delete
 vare={}
-#установачные пакеты
+#установочные пакеты
 path ={
     'calk_m' : "https://github.com/xHak2215/calk_m",
     'pynet': "https://github.com/xHak2215/py.net", 
@@ -71,7 +72,7 @@ if log_actived == 1:
     
 if lang =="ru":
     HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - тикущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
+ del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)
  
  '''
@@ -129,18 +130,18 @@ def interhek():
     try:
         ulrinethek = requests.get('https://ya.ru/')
         if ulrinethek.status_code == 200:
-            print('conekt internet')
+            print('connect internet')
         elif ulrinethek.status_code != 200:
-            print('Not conekt https://ya.ru/')
+            print('Not connect https://ya.ru/')
             print("error inet 1")
             ulrinethek = requests.get('https://www.google/')
         if ulrinethek.status_code == 200:
-            print('conect internet')
+            print('connect internet')
         elif ulrinethek.status_code != 200:
-            print('Not conekt https://www.google/')
+            print('Not connect https://www.google/')
             print("error inet 1")
     except  requests.exceptions.Timeout:
-        print('Not conekt error time out')   
+        print('Not connect error time out')   
 def scansystem(key):
     # Получаем информацию о системе
     def get_system_info():
@@ -254,7 +255,7 @@ while True:
         if log_save == 1:
 
             logger.add("log_console.log", compression="zip",rotation="500 MB") 
-    #гарячие клавишы 
+    #горячие клавишы 
     keyboard.add_hotkey("ctrl+q", lambda: exit)
     
     
