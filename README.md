@@ -58,7 +58,7 @@
 git clone https://github.com/xHak2215/consol
 ```
 или просто  <a href="https://github.com/xHak2215/consol/archive/refs/heads/main.zip">скачять</a> 
-*затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!*
+<h3>затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!</h3>
 
 за тем посоветую почитать файл<a href="https://github.com/xHak2215/consol/tree/main/consol/info.txt"> info.txt</a>
 
@@ -76,7 +76,7 @@ git clone https://github.com/xHak2215/consol
 настройки храняться в файле <a href="https://github.com/xHak2215/consol/blob/main/consol/settings.py">settings.py</a>(примечание переименовывать файл не льзя)
 <h3>при не нохождении файла будут использываны настройки по умолчянию</h3>
 <h3>сам файл</h3>
-```settings.py
+```python
 #язык (в разроботке) ru - русский , eng - English;
 lang ="ru"
 #logs;on-1,off-0
@@ -95,7 +95,7 @@ title = 1# 1 - title on 0 - title off
 #среда исполнения SH-мая консоль cmd-консоль виндовс или Линукс в зависимости от системы
 sreda="SH"
 ```
-<h3></h3>
+
 
 <p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
 
