@@ -76,6 +76,7 @@ git clone https://github.com/xHak2215/consol
 настройки храняться в файле <a href="https://github.com/xHak2215/consol/blob/main/consol/settings.py">settings.py</a>(примечание переименовывать файл не льзя)
 <h3>при не нохождении файла будут использываны настройки по умолчянию</h3>
 <h3>сам файл</h3>
+
 ```python
 #язык (в разроботке) ru - русский , eng - English;
 lang ="ru"
