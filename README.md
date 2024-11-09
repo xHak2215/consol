@@ -10,7 +10,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/xHak2215/consol">
-    <img src="srk/ico_imdge.png" alt="ico" width="80" height="80">
+    <img src="srk/ico_image.png" alt="ico" width="80" height="80">
   </a>
 
   <h3 align="center">consolSH</h3>
