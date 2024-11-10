@@ -38,29 +38,33 @@ try:
     from settings import *
 except ModuleNotFoundError:
     # Настройка\settings
-    #язык (в разрабоьке) ru - русский eng - English;  shitty translation from me and google
+    #язык (в разработке) ru - русский eng - English;  shitty translation from me and google
     lang ="ru"
     #logs;on-1,off-0
     log_actived=0
-    #log saveс
+    #log save
     log_save=0
     # custom
     preview_text = Figlet(font='slant')
     #consol title
     consoledTitle="consolSH"
     title = 1# 1 - title on 0 - title off
-    #среда исполнения SH-мая кансоль cmd-кансоль виндовс 
+    #среда исполнения SH-мая консоль cmd-консоль виндовс 
     sreda="SH"
     print("use um")
 
 mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
 
 cd_udirect=0#не удалять not delete
-vare={}
+vare={
+    "$cd":f'{os.getcwd()}',
+
+    
+}
 #установочные пакеты
 path ={
     'calk_m' : "https://github.com/xHak2215/calk_m",
-    'pynet': "https://github.com/xHak2215/py.net", 
+    'pynet'  : "https://github.com/xHak2215/py.net", 
     
     
 }
@@ -71,8 +75,8 @@ if log_actived == 1:
 
     
 if lang =="ru":
-    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменых \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цыфр перемных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
+    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
+ del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)
  
  '''
@@ -83,7 +87,7 @@ taskill - termination of processes \n apt - pip-based package installer (apt -p 
 
 '''
 else:
-    print("not lange")
+    print("not lang")
      
 
 
@@ -93,7 +97,7 @@ def calc():
     print("Выберите функцию:")
     for number, letter in enumerate(deist):
         print(number,".", letter)
-    key=input(f"выбирите действие {kast}")
+    key=input(f"выберите действие {kast}")
     if key == "0":
         sinus()
     elif key == "1":
@@ -369,7 +373,7 @@ while True:
         except IndexError:
             try:
                 printe = command.split(" ")[1]
-                printe=vare[printe]
+                printe =vare[printe]
             except KeyError:
                 print('not var')
         print(printe)    
