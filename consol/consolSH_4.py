@@ -58,6 +58,7 @@ mein_direct=str(os.path.dirname(os.path.abspath(__name__)))
 cd_udirect=0#не удалять not delete
 vare={
     "$cd":f'{os.getcwd()}',
+    "$pi":'3,1415926535',
 
     
 }
@@ -75,15 +76,15 @@ if log_actived == 1:
 
     
 if lang =="ru":
-    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных \n uod - запуск и передачя даных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сыллку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linuks-terminal ) \n datatime - дата и время \n
- taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-off выключение пк) (system -start /путь/ - запуск программ)
+    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных \n uod - запуск и передачя данных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сылку на github) \n 
+ del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linux-terminal ) \n datatime - дата и время \n # - символ комментария
+ taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-scan-save - отчет о системе и сохронение ) (system-off выключение пк) (system -start /путь/ - запуск программ)
  
  '''
 elif lang=="eng":
     HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
-del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n
-taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)
+del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n # - comment symbol
+taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages ) you can also just enter a link to github \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)
 
 '''
 else:
@@ -168,7 +169,7 @@ def scansystem(key):
         for partition in partitions:
             try:
                 partition_usage = psutil.disk_usage(partition.mountpoint)
-                disk_info += f"Device: {partition.device}\n nMountpoint: {partition.mountpoint}\n File System Type: {partition.fstype}\n Total Size: {partition_usage.total}\n bytesnUsed: {partition_usage.used}\n bytesnFree: {partition_usage.free}\n bytesnPercentage: {partition_usage.percent}%nn"
+                disk_info += f"Device: {partition.device}\n Mountpoint: {partition.mountpoint}\n File System Type: {partition.fstype}\n Total Size: {partition_usage.total}\n bytesnUsed: {partition_usage.used}\n bytesnFree: {partition_usage.free}\n bytesnPercentage: {partition_usage.percent}%"
             except PermissionError:
                 pass
         return disk_info
@@ -189,7 +190,7 @@ def scansystem(key):
         return report,system
     report=generate_report()
     print(report)
-    if key =="seve":
+    if key =="save":
         # Сохраняем отчет в файл
         def save_report(report):
             os.chdir(mein_direct)
@@ -259,7 +260,7 @@ while True:
         if log_save == 1:
 
             logger.add("log_console.log", compression="zip",rotation="500 MB") 
-    #горячие клавишы 
+    #горячие клавиши
     keyboard.add_hotkey("ctrl+q", lambda: exit)
     
     
@@ -329,7 +330,7 @@ while True:
         try:
             if lang =="ru":
                 print("Выход из syshab")
-                print (":( уже уходиш...")
+                print (":( уже уходиш ...")
                 exit()     
             elif lang =="eng":
                 print("exit is syshab")
@@ -367,7 +368,7 @@ while True:
             if cd_udirect != 0:
                 os.chdir(cd_udirect)
         
-    elif command.startswith("echo"):
+    elif command.startswith("echo") or command.startswith("print"):
         try:
             printe = command.split("'")[1]
         except IndexError:
@@ -377,12 +378,17 @@ while True:
             except KeyError:
                 print('not var')
         print(printe)    
-    elif command.startswith("var="):#var=переменая=данные
-        var = command.split("=")[1]
-        var_name = command.split("=")[2]
-        vare[var] = var_name
-        if log_actived == 1:
-            logger.debug(f"var list {vare}")
+    elif command.startswith("var="):#var=переменная=данные
+        try:
+            var = command.split("=")[1]
+            var_name = command.split("=")[2]
+            vare[var] = var_name
+            if log_actived == 1:
+                logger.debug(f"var list {vare}")
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
     elif command.startswith("var delete"):
         var=command.split(" ")[1]
         del vare[var]
@@ -545,8 +551,10 @@ while True:
     elif command == "datatime":
         import datetime
         print(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
-        
-    
+    elif command.startswith("python"):
+        os.system(command.split(" ")[1])
+    elif command[0] =="#":
+        pass
         
     
         
