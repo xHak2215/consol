@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "cansolSH"
-version = "5.4.5"
+version = "5.4.8"
 description = "я не знаю что тут пиать"
 authors = ["Yarik mutg <@HITHELL.com>"]
 license = "MIT"
