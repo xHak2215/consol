@@ -3,7 +3,7 @@ requires = ["poetry-core>=5.4.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "cansolSH"
+name = "consolSH"
 version = "5.4.8"
 description = "я не знаю что тут пиать"
 authors = ["Yarik mutg <@HITHELL.com>"]
