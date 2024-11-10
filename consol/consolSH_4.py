@@ -552,7 +552,10 @@ while True:
         import datetime
         print(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
     elif command.startswith("python"):
-        os.system(command.split(" ")[1])
+        a="python "
+        if platform.system() =='Linux':
+            a="python3 "
+        os.system(a,command.split(" ")[1])
     elif command[0] =="#":
         pass
         
