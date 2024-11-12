@@ -62,7 +62,7 @@ git clone https://github.com/xHak2215/consol
 
 потдерживаемые системы:
 * windows
-* Linux
+* Linux(крайне не стабильная работа)
 
 поддерживаемые языки:
 * Русский
