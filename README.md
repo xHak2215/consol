@@ -122,6 +122,7 @@ var=nameVar=dataVar
 ```consolSH
 apt-p
 ```
+<h4>модули будут дополняться структура модулей схожа с библиотеками python</h4>
 
 
 <p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
