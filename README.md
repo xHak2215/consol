@@ -58,7 +58,7 @@ git clone https://github.com/xHak2215/consol
 <h3>затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!</h3>
 
 за тем посоветую почитать файл<a href="https://github.com/xHak2215/consol/tree/main/consol/info.txt"> info.txt</a>
-<h4>и ввести команду :</h4>
+и ввести команду :
 
 ```Sh
 help
