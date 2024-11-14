@@ -1,4 +1,4 @@
-
+.
 <a id="readme-top"></a>
 
 
@@ -129,6 +129,8 @@ apt-p
 
 
 <p align="right">(<a href="#readme-top">↑верх↑</a>)</p>
+
+<input type="button" name="↑верх↑" value="#readme-top" />
 
 
 
