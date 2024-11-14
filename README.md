@@ -95,9 +95,9 @@ log_save=0# включено ли сохронение логов
 # custom
 try:
     from pyfiglet import Figlet
-    preview_text = Figlet(font='slant')стиль заставки (больше о стиле https://pypi.org/project/pyfiglet/)
+    preview_text = Figlet(font='slant')стиль ASCII арта (больше о стиле https://pypi.org/project/pyfiglet/)
 except:
-    preview_text=str(hex('slant'))#самнительно. . .
+    preview_text=str(hex('slant'))
 #consol title заставка при запуске
 consoledTitle="consolSH"
 title = 1# 1 - title on 0 - title off
