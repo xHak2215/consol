@@ -89,7 +89,7 @@ help
 #язык (в разработке) ru - русский , eng - English;
 lang ="ru"
 #logs;on-1,off-0
-log_actived=0# включено ли лагирывание
+log_actived=0# включено ли логирывание
 #log save
 log_save=0# включено ли сохронение логов 
 # custom
