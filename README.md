@@ -18,7 +18,7 @@
   <p align="center">
     consol
     <br />
-    <a href="https://github.com/xHak2215/consol"><strong>документация»</strong></a>
+    <a href="https://github.com/xHak2215/consol"><strong>.</strong></a>
     <br />
   </p>
 </div>
