@@ -413,7 +413,10 @@ while True:
             
 
     elif command =="cls":
-        os.system('cls')        
+        if platform.system() =='Windows':
+            os.system('cls')        
+        else:
+            os.system('clear')
     elif command.startswith("vuod"):
         directory=command.split(" ")[1]
         directory=directory.split(" ")[0]
