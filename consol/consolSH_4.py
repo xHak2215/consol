@@ -381,7 +381,7 @@ while True:
     elif command.startswith("var="):#var=переменная=данные
         try:
             var = command.split("=")[1]
-            var_name = command.split("=")[2]
+            var_name = command.split(" ")[2]
             vare[var] = var_name
             if log_actived == 1:
                 logger.debug(f"var list {vare}")
