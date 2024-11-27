@@ -115,7 +115,7 @@ sreda="SH"
 <h3>задать сваю прерменную</h3>
 
 ```consolSH
-var=nameVar=dataVar
+var nameVar=dataVar
 ```
 
 <h3>apt</h3>
