@@ -52,7 +52,7 @@
 
 <h3> установка: </h3>
 
-для работы приложения необходим python 3.12v или выше желательно наличие pip
+для работы приложения необходим <a href="https://www.python.org/"> python 3.12v</a> или выше желательно наличие pip
 
 ```sh
 git clone https://github.com/xHak2215/consol
