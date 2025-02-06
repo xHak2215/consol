@@ -20,14 +20,14 @@ try:
     modul_neim=['pip','requests','psutil']
 except ImportError:
     print("error lib")
-    print('извините каиета из библиотек не установлены')
+    print('извините некотрые из библиотек не установлены')
     try:
-        impors= input("устанавить? y/n"+kast)
+        impors= input("установить? y/n"+kast)
         if impors == 'y':
             try:
                 os.system('start impori.bat')
             except:
-                print(f"увы не палучилась ")
+                print(f"увы не получилась ")
         elif impors =="n":
             print('нет так нет в ручную')
     except IOError:
@@ -44,6 +44,11 @@ except ModuleNotFoundError:
     log_actived=0
     #log save
     log_save=0
+    path ={
+    'calk_m' : "https://github.com/xHak2215/calk_m",
+    'pynet'  : "https://github.com/xHak2215/py.net", 
+    
+    }
     # custom
     preview_text = Figlet(font='slant')
     #consol title
@@ -60,15 +65,8 @@ vare={
     "$cd":f'{os.getcwd()}',
     "$pi":'3,1415926535',
 
-    
 }
-#установочные пакеты
-path ={
-    'calk_m' : "https://github.com/xHak2215/calk_m",
-    'pynet'  : "https://github.com/xHak2215/py.net", 
-    
-    
-}
+
 
 
 if log_actived == 1:
@@ -140,11 +138,11 @@ def interhek():
             print('Not connect https://ya.ru/')
             print("error inet 1")
             ulrinethek = requests.get('https://www.google/')
-        if ulrinethek.status_code == 200:
-            print('connect internet')
-        elif ulrinethek.status_code != 200:
-            print('Not connect https://www.google/')
-            print("error inet 1")
+            if ulrinethek.status_code == 200:
+                print('connect internet')
+            elif ulrinethek.status_code != 200:
+                print('Not connect https://www.google/')
+                print("error inet 1")
     except  requests.exceptions.Timeout:
         print('Not connect error time out')   
 def scansystem(key):
@@ -224,34 +222,39 @@ def ping(ping_url)->int:
                 return "not"
         except requests.exceptions.InvalidURL:
             return f"Invalid url {kast}{ping_url}"
-    except requests.exceptions.ConnectionError: return "not conect"
+    except requests.exceptions.ConnectionError: return "not connect"
     response=time.time() - start_time
 #    print('ping',response)
     return response
-
 def admin()->bool:
-    if os.getcwd() == "C:/Windows/system32":
-        return True
+    if platform.system() =='Linux':
+        if os.getuid() == 0:
+            return True
+        else:
+            return False
     else:
-        return False
-if title == 1:
-    os.system("cls")
-    print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
-    if lang =="ru":
-        print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
-    if lang =="eng":
-        print("WELCOM FROM consolSH :)")
-    else:
-        if log_actived==1:
-            logger.debug(f"not lang {lang}")
+        if os.getcwd() == "C:/Windows/system32" :
+            return True
+        else:
+            return False
+def tet():
+
+    if title == 1:
+        os.system("cls")
+        print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
+        if lang =="ru":
+            print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
+        if lang =="eng":
+            print("WELCOM FROM consolSH :)")
+        else:
+            if log_actived==1:
+                logger.debug(f"not lang {lang}")
             if log_save == 1:
-                logger.add("log_console.log", compression="zip",rotation="500 MB") 
-            
-        
-interhek()
+                logger.add("log_console.log", compression="zip",rotation="500 MB")      
+    interhek()
 app =""
 
- 
+
 while True:
     if log_actived == 1:
         
@@ -261,23 +264,39 @@ while True:
 
             logger.add("log_console.log", compression="zip",rotation="500 MB") 
     #горячие клавиши
-    keyboard.add_hotkey("ctrl+q", lambda: exit)
+    #keyboard.add_hotkey("ctrl+q", lambda: exit)
     
-    
-    if admin() == True:
-        adm = "#"
-    else:
-        adm = "~"
     try:
-        command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
-        command=command.lower()
-        if sreda == "SH":
+        input_arg=sys.argv
+        input_arg=input_arg[1]
+        print(input_arg)
+    except IndexError:
+        input_arg='no'
+        if log_actived ==1:
+            logger.info("error no argument console")
+            
+    if input_arg != 'no':
+       if input_arg.startswith("start"):
+            file=input_arg.split('-')[1]
+            program=open(file,'r',encoding='UTF-8')
+            command = [command.rstrip() for command in program]
+    else:
+        tet()
+        if admin() == True:
+            adm = "#"
+        else:
+            adm = "~"
+        try:        
+            command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
+            command=command.lower()
+            if sreda == "SH":
+                pass
+            elif sreda =="cmd":
+                    sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
+        except KeyboardInterrupt:
             pass
-        elif sreda =="cmd":
-                sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
-    except KeyboardInterrupt:
-        pass
-        if log_actived ==1:logger.debug(f"error {kast} KeyboardInterrupt")
+            if log_actived ==1:logger.debug(f"error {kast} KeyboardInterrupt")
+  
     
     if command == "break":
         break
@@ -326,11 +345,11 @@ while True:
     elif command == "date":
         print (datetime.datetime.now())
 #        subprocess.call(["ping", "-c", "3", "google.com"])
-    elif command == "exit": 
+    elif command == "exit" or command == "end": 
         try:
             if lang =="ru":
                 print("Выход из syshab")
-                print (":( уже уходиш ...")
+                print (":( уже уходишь ...")
                 exit()     
             elif lang =="eng":
                 print("exit is syshab")
@@ -381,10 +400,10 @@ while True:
     elif command.startswith("var="):#var=переменная=данные
         try:
             var = command.split("=")[1]
-            var_name = command.split(" ")[2]
+            var_name = command.split("=")[2]
             vare[var] = var_name
             if log_actived == 1:
-                logger.debug(f"var list {vare}")
+                logger.debug(f"var list {kast} {vare}")
         except IndexError :
             print('error arg')
             if log_actived ==1:
@@ -403,20 +422,25 @@ while True:
             except IndexError:
                 scansystem(0)
         elif key =="off"or key=="poweroff":
-            if platform.system() =='Windows':
-                os.system('shutdown -s')
-            elif platform.system() =='Linux':
-                os.system('poweroff')
+            sfghnfg=input(f"вы уверены [y/n] {kast}")
+            if sfghnfg=='y' or sfghnfg=='yes':
+                if platform.system() =='Windows':
+                    os.system('shutdown -s')
+                elif platform.system() =='Linux':
+                    os.system('poweroff')
+            else:
+                print('отмена')
         elif key.startswith("start"):
             directory=key.split(' ')[1]
             os.system(f'start "consolSHProcess"{directory} ')
             
 
     elif command =="cls":
-        if platform.system() =='Windows':
-            os.system('cls')        
+        if platform.system() =='windows':
+            os.system('cls')
         else:
-            os.system('clear')
+            os.system('clear')    
+                
     elif command.startswith("vuod"):
         directory=command.split(" ")[1]
         directory=directory.split(" ")[0]
@@ -477,7 +501,7 @@ while True:
         print(pings)
     elif command.startswith("taskill"):
         key=command.split(" ")[1]
-        if platform.system() =='Linux':
+        if platform.system() =='windows':
             sp.Popen(f'TASKKILL /F /IM {key} /T')
         elif platform.system() =='Linux':
             sp.Popen(f'kill -SIGKILL {key}')
@@ -559,8 +583,66 @@ while True:
         if platform.system() =='Linux':
             a="python3 "
         os.system(a,command.split(" ")[1])
-    elif command[0] =="#":
-        pass
+    elif command.startswith('#'):
+        try:
+            if command[0] =="#":
+                pass
+        except IndexError:
+            pass
+    elif command.startswith('input'):#input:переменая,выводимый текст input: Change, displayed text
+        data_input_command = command.split(":")[1]
+        #print(data_input_command)
+        input_var_neme = data_input_command.split(",")[0]
+        if vare.keys() is not input_var_neme:#праверяем есть ли такая переменая 
+            data_input=input(data_input_command.split(",")[1])
+            vare[input_var_neme] =data_input #если нет создаем
+        else:
+            data_input=input(data_input_command.split(",")[1])
+            vare.update(input_var_neme=data_input)
+            
+    elif command is vare.keys() and command.startswith('+'): 
+        try:
+            var = command.split("=")[0]
+            var_name = command.split("=")[2]
+            vare[var] = var_name
+            if log_actived == 1:
+                logger.debug(f"var list {kast} {vare}")
+        except IndexError :
+            print('error arg')
+            if log_actived ==1:
+                logger.debug(f"error arg нет аргументов")
+        
+    elif command.startswith("calc="):  # calc=операция=переменная1=переменная2
+        try:
+            parts = command.split("=")
+            operation = parts[1]
+            var1 = parts[2]
+            var2 = parts[3]
+            
+            # Преобразуем переменные в числа
+            num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
+            num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
+            
+            if operation == "add":
+                result = num1 + num2
+                print(f"Результат сложения: {result}")
+                if log_actived == 1:
+                    logger.debug(f"Сложение: {num1} + {num2} = {result}")
+            elif operation == "subtract":
+                result = num1 - num2
+                print(f"Результат вычитания: {result}")
+                if log_actived == 1:
+                    logger.debug(f"Вычитание: {num1} - {num2} = {result}")
+            else:
+                print('Неизвестная операция')
+                if log_actived == 1:
+                    logger.debug('Неизвестная операция')
+        except IndexError:
+            print('error arg')
+            if log_actived == 1:
+                logger.debug('error arg нет аргументов')
+   
+
         
     
         
@@ -574,3 +656,7 @@ while True:
             print("error 1 not command")
         if log_actived==1:
             logger.debug(f"not command {kast} {command}")
+            
+
+
+
