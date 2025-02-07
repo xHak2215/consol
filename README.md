@@ -102,7 +102,8 @@ log_save=0
 #установочные пакеты install path
 path ={
     'calk_m' : "https://github.com/xHak2215/calk_m",
-    'pynet'  : "https://github.com/xHak2215/py.net", 
+    'pynet'  : "https://github.com/xHak2215/py.net",
+    'file_manager':"https://github.com/xHak2215/SH_file_menadger"
     
 }
 # custom
