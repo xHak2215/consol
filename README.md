@@ -57,6 +57,10 @@
 ```sh
 git clone https://github.com/xHak2215/consol
 ```
+или же с помощю pip:
+```sh
+pip download git+https://github.com/xHak2215/consol                                                       
+```
 или просто  <a href="https://github.com/xHak2215/consol/archive/refs/heads/main.zip">скачять</a> 
 <h3>затем необходимо запустить файл setup.py далее дождаться установки библиотек и все!</h3>
 
@@ -126,6 +130,11 @@ sreda="SH"
 
 ```consolSH
 var nameVar=dataVar
+```
+<h3>ввод данных input</h3>
+синтакис команды
+```consolSH
+input:название переменой,выводимый текст на строке ввода
 ```
 
 <h3>apt</h3>
