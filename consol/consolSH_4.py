@@ -553,7 +553,7 @@ while True:
             if error !=0:
                 print('вазникла проблема с pip ')
                 #os.path.exists(f"start {mein_direct}\\cd\\pip3.12.exe")
-                if True == os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
+                if  os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
                     if log_actived ==1:
                         logger.debug(f"error pip")
                     print("error pip файл pip3.12.exe не найден проверьте его наличие подробнее в info.txt")
@@ -611,6 +611,7 @@ while True:
             if log_actived ==1:
                 logger.debug(f"error arg нет аргументов")
         
+    # В РАЗРОБОТКЕ
     elif command.startswith("calc="):  # calc=операция=переменная1=переменная2
         try:
             parts = command.split("=")
@@ -621,22 +622,21 @@ while True:
             # Преобразуем переменные в числа
             num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
             num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
-
-             # В РАЗРОБОТКЕ
-            if operation == "add":
+            
+            if operation == "add" or operation == "+":
                 result = num1 + num2
-                print(f"Результат сложения: {result}")
+                print(f"Результат сложения{kast}  {result}")
                 if log_actived == 1:
-                    logger.debug(f"Сложение: {num1} + {num2} = {result}")
-            elif operation == "subtract":
+                    logger.debug(f"Сложение{kast}  {num1} + {num2} = {result}")
+            elif operation == "subtract" or operation == "-":
                 result = num1 - num2
-                print(f"Результат вычитания: {result}")
+                print(f"Результат вычитания{kast}  {result}")
                 if log_actived == 1:
-                    logger.debug(f"Вычитание: {num1} - {num2} = {result}")
+                    logger.debug(f"Вычитание{kast}  {num1} - {num2} = {result}")
             else:
-                print('Неизвестная операция')
+                print(f'error operation {kast} Неизвестная операция')
                 if log_actived == 1:
-                    logger.debug('Неизвестная операция')
+                    logger.info('Неизвестная операция')
         except IndexError:
             print('error arg')
             if log_actived == 1:
