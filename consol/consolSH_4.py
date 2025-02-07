@@ -237,20 +237,19 @@ def admin()->bool:
             return True
         else:
             return False
-def tet():
 
-    if title == 1:
-        os.system("cls")
-        print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
-        if lang =="ru":
-            print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
-        if lang =="eng":
-            print("WELCOM FROM consolSH :)")
-        else:
-            if log_actived==1:
-                logger.debug(f"not lang {lang}")
-            if log_save == 1:
-                logger.add("log_console.log", compression="zip",rotation="500 MB")      
+if title == 1:
+    os.system("cls")
+    print("\033[37m\033[44m{}\033[0m".format(preview_text.renderText(consoledTitle)))
+    if lang =="ru":
+        print("ДОБРО ПОЖАЛОВАТЬ В consolSH :)")
+    if lang =="eng":
+        print("WELCOM FROM consolSH :)")
+    else:
+        if log_actived==1:
+            logger.debug(f"not lang {lang}")
+        if log_save == 1:
+            logger.add("log_console.log", compression="zip",rotation="500 MB")      
     interhek()
 app =""
 
@@ -266,36 +265,35 @@ while True:
     #горячие клавиши
     #keyboard.add_hotkey("ctrl+q", lambda: exit)
     
-    try:
-        input_arg=sys.argv
-        input_arg=input_arg[1]
-        print(input_arg)
-    except IndexError:
-        input_arg='no'
-        if log_actived ==1:
-            logger.info("error no argument console")
+    #try:
+    #    input_arg=sys.argv
+    #    input_arg=input_arg[1]
+    #    print(input_arg)
+    #except IndexError:
+    #    input_arg='no'
+    #    if log_actived ==1:
+    #        logger.info("error no argument console")
             
-    if input_arg != 'no':
-       if input_arg.startswith("start"):
-            file=input_arg.split('-')[1]
-            program=open(file,'r',encoding='UTF-8')
-            command = [command.rstrip() for command in program]
+    #if input_arg != 'no':
+    #   if input_arg.startswith("start"):
+    #        file=input_arg.split('-')[1]
+    #        program=open(file,'r',encoding='UTF-8')
+    #        command = [command.rstrip() for command in program]
+    #else:
+    if admin() == True:
+        adm = "#"
     else:
-        tet()
-        if admin() == True:
-            adm = "#"
-        else:
-            adm = "~"
-        try:        
-            command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
-            command=command.lower()
-            if sreda == "SH":
-                pass
-            elif sreda =="cmd":
-                    sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
-        except KeyboardInterrupt:
+        adm = "~"
+    try:        
+        command = input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}'))
+        command=command.lower()
+        if sreda == "SH":
             pass
-            if log_actived ==1:logger.debug(f"error {kast} KeyboardInterrupt")
+        elif sreda =="cmd":
+                sreda_cmd(input("\033[32m{}\033[0m".format(f'{app}{os.getcwd()} {adm} "{sreda}" {kast}')))
+    except KeyboardInterrupt:
+        pass
+        if log_actived ==1:logger.debug(f"error {kast} KeyboardInterrupt")
   
     
     if command == "break":
@@ -397,11 +395,12 @@ while True:
             except KeyError:
                 print('not var')
         print(printe)    
-    elif command.startswith("var="):#var=переменная=данные
+    elif command.startswith("var "):#var=переменная=данные
         try:
+            command=command.split(' ')[1]
             var = command.split("=")[1]
-            var_name = command.split("=")[2]
-            vare[var] = var_name
+            var_name = command.split("=")[0]
+            vare[var_name] = var
             if log_actived == 1:
                 logger.debug(f"var list {kast} {vare}")
         except IndexError :
@@ -656,7 +655,3 @@ while True:
             print("error 1 not command")
         if log_actived==1:
             logger.debug(f"not command {kast} {command}")
-            
-
-
-
