@@ -621,7 +621,8 @@ while True:
             # Преобразуем переменные в числа
             num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
             num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
-            
+
+             # В РАЗРОБОТКЕ
             if operation == "add":
                 result = num1 + num2
                 print(f"Результат сложения: {result}")
