@@ -14,6 +14,7 @@ try:
     from pyfiglet import Figlet
     from subprocess import Popen, PIPE, STDOUT     
     import subprocess as sp
+    import re
 #    import ctypes
     import pyautogui
 #   subprocess.call(['python.exe' '-m' 'pip' 'install' '--upgrade pip'])
@@ -47,8 +48,8 @@ except ModuleNotFoundError:
     path ={
     'calk_m' : "https://github.com/xHak2215/calk_m",
     'pynet'  : "https://github.com/xHak2215/py.net", 
-    'manager':"https://github.com/xHak2215/SH_file_menadger"
-        
+    'file_manager':"https://github.com/xHak2215/SH_file_menadger"
+    
     }
     # custom
     preview_text = Figlet(font='slant')
@@ -75,16 +76,17 @@ if log_actived == 1:
 
     
 if lang =="ru":
-    HELP='''dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных \n uod - запуск и передачя данных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сылку на github) \n 
- del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых комманд python \n consol - исполнение комманд в консоли os  (windows-cmd ; Linux-terminal ) \n datatime - дата и время \n # - символ комментария
- taskill - завершение процессов  \n apt - pip-based package installer (apt -p for a list of packages you can also just enter a link to github) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-scan-save - отчет о системе и сохронение ) (system-off выключение пк) (system -start /путь/ - запуск программ)
+    HELP=''' dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных пример использования var <переменная>=<ее данные>  \n uod - запуск и передачя данных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сылку на github) \n 
+ del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых команд python \n consol - исполнение команд в консоли os  (windows-cmd ; Linux-terminal ) \n datatime - дата и время \n # - символ комментария
+ taskill - завершение процессов  \n apt - pip-based package installer (apt -p для списка пакета , также можно вести ссылку но репозиторий GitHub для его установки) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-scan-save - отчет о системе и сохронение ) (system-off выключение пк) (system -start /путь/ - запуск программ)
+ input - пользовательский ввод , пример использования input:<переменая>,<текст строки ввода> \n calc - исполнение математических операций пример использования calc <переменная с результатом>=1+1 ,операции: - отнять ,+ сложить,* умножить ,/ разделить,** возвести в степень
  
  '''
 elif lang=="eng":
-    HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
+    HELP='''dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables an example of using var <variable> = <its data> \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
 del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n # - comment symbol
 taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages ) you can also just enter a link to github \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs)
-
+Input - user input, example of using input: <variable>, <Epinity line text>  n Calc - execution of mathematical operations example of using Calc <variable with the result> = 1+ 1, operations: - take away,+ fold,* multiply,/ share,/ divide, ** build to degree
 '''
 else:
     print("not lang")
@@ -280,6 +282,7 @@ while True:
     #        file=input_arg.split('-')[1]
     #        program=open(file,'r',encoding='UTF-8')
     #        command = [command.rstrip() for command in program]
+    #        program.clous()
     #else:
     if admin() == True:
         adm = "#"
@@ -476,7 +479,7 @@ while True:
             print("\033[0m{}".format(""))
         else:
             try:
-                 print("\033",color,"{}".format(""))
+                print("\033",color,"{}".format(""))
             except:
                 print("error not color")
     elif command.startswith("corsemove"):
@@ -524,7 +527,8 @@ while True:
                     if log_actived ==1:
                         logger.debug(f"error pip")
                     print("error pip файл pip3.12.exe не найден проверьте его наличие подробнее в info.txt")
-            os.system(f"{mein_direct}\\cd\\pip3.12.exe install git+{url}")
+            os.system(f"{mein_direct}\\cd\\pip3.12.exe download git+{url}")
+            
         except IndexError :
             print('error arg')
             if log_actived ==1:
@@ -554,10 +558,13 @@ while True:
             if error !=0:
                 print('вазникла проблема с pip ')
                 #os.path.exists(f"start {mein_direct}\\cd\\pip3.12.exe")
-                if  os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
+                if os.path.isfile(f"{mein_direct}\\cd\\pip3.12.exe"):
+                    os.system(f"{mein_direct}\\cd\\pip3.12.exe install {p}")
+                else:
                     if log_actived ==1:
                         logger.debug(f"error pip")
                     print("error pip файл pip3.12.exe не найден проверьте его наличие подробнее в info.txt")
+                    
             if cd_udirect != 0:
                 os.chdir(cd_udirect)
         except IndexError :
@@ -589,7 +596,7 @@ while True:
                 pass
         except IndexError:
             pass
-    elif command.startswith('input'):#input:переменая,выводимый текст input: Change, displayed text
+    elif command.startswith('input'):#input:переменая,выводимый текст input: Change, display text
         data_input_command = command.split(":")[1]
         #print(data_input_command)
         input_var_neme = data_input_command.split(",")[0]
@@ -613,12 +620,15 @@ while True:
                 logger.debug(f"error arg нет аргументов")
         
     # В РАЗРОБОТКЕ
-    elif command.startswith("calc="):  # calc=операция=переменная1=переменная2
+    elif command.startswith("calc "):  # calc переменная которая ровна результату=переменная1 операция переменная2 пример> calc var=1+1
         try:
-            parts = command.split("=")
+            command=command.split(" ")[1]
+            var_resultat=command.split("=")[0]
+            parts=command.split("=")[1]
+            parts = re.findall(r'\d+|\D+',parts)
             operation = parts[1]
-            var1 = parts[2]
-            var2 = parts[3]
+            var1 = parts[0]
+            var2 = parts[2]
             
             # Преобразуем переменные в числа
             num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
@@ -626,27 +636,45 @@ while True:
             
             if operation == "add" or operation == "+":
                 result = num1 + num2
-                print(f"Результат сложения{kast}  {result}")
+                vare[var_resultat] = result
+                #print(f"Результат сложения{kast}  {result}")
                 if log_actived == 1:
-                    logger.debug(f"Сложение{kast}  {num1} + {num2} = {result}")
+                    logger.debug(f"Сложение{kast}  {num1} + {num2} = {result} помещено в {var_resultat}")
             elif operation == "subtract" or operation == "-":
                 result = num1 - num2
-                print(f"Результат вычитания{kast}  {result}")
+                vare[var_resultat] = result
+                #print(f"Результат вычитания{kast}  {result}")
                 if log_actived == 1:
-                    logger.debug(f"Вычитание{kast}  {num1} - {num2} = {result}")
+                    logger.debug(f"Вычитание{kast}  {num1} - {num2} = {result} помещено в {var_resultat}")
+            elif operation == "umnohat" or operation == "*":
+                result = num1 * num2
+                vare[var_resultat] = result
+                #print(f"Результат вычитания{kast}  {result}")
+                if log_actived == 1:
+                    logger.debug(f"умножение{kast}  {num1} * {num2} = {result} помещено в {var_resultat}")
+            elif operation == "delit" or operation == "/":
+                result = num1 / num2
+                vare[var_resultat] = result
+                #print(f"Результат вычитания{kast}  {result}")
+                if log_actived == 1:
+                    logger.debug(f"деление{kast}  {num1} / {num2} = {result} помещено в {var_resultat}")
+            elif operation == "stepen" or operation == "**":
+                vare[var_resultat] = result    
+                #print(f"Результат вычитания{kast}  {result}")
+                if log_actived == 1:
+                    logger.debug(f"степеть{kast}  {num1} ** {num2} = {result} помещено в {var_resultat}")  
             else:
                 print(f'error operation {kast} Неизвестная операция')
                 if log_actived == 1:
-                    logger.info('Неизвестная операция')
+                    logger.error('Неизвестная операция')
         except IndexError:
             print('error arg')
             if log_actived == 1:
                 logger.debug('error arg нет аргументов')
-   
+        
 
         
     
-        
         
     else:
         if lang =="ru":
