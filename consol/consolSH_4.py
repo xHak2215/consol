@@ -15,6 +15,7 @@ try:
     from subprocess import Popen, PIPE, STDOUT     
     import subprocess as sp
     import re
+    import ctypes
 #    import ctypes
     import pyautogui
 #   subprocess.call(['python.exe' '-m' 'pip' 'install' '--upgrade pip'])
@@ -84,14 +85,14 @@ if lang =="ru":
     HELP=''' dir - (показать содержимое текущей директории), \n cm  <имя_директории> - (создать директорию), \n var  - создание переменных пример использования var <переменная>=<ее данные>  \n uod - запуск и передачя данных в программу \n color - изменение цвета \n apt - установщик пакетов на основе pip (apt -p для списка покетов также можно просто вписать сылку на github) \n 
  del <имя_директории> - (удалить директорию). \n pwd - текущий репозиторий \n bash - исполнение bash скриптов \n echo - вывод текста/цифр переменных \n eval - исполнение простых команд python \n consol - исполнение команд в консоли os  (windows-cmd ; Linux-terminal ) \n datatime - дата и время \n # - символ комментария
  taskill - завершение процессов  \n apt - pip-based package installer (apt -p для списка пакета , также можно вести ссылку но репозиторий GitHub для его установки) \n pip - pip-'комманда' \n system - взаимодействие с системой (system-scan - отчет о системе) (system-scan-save - отчет о системе и сохронение ) (system-off выключение пк) (system -start /путь/ - запуск программ)
- input - пользовательский ввод , пример использования input:<переменая>,<текст строки ввода> \n calc - исполнение математических операций пример использования calc <переменная с результатом>=1+1 ,операции: - отнять ,+ сложить,* умножить ,/ разделить,** возвести в степень \n curl - получение текста из сайта также можно приравнять результат к переменной  пример использования curl <ссылка>=<переменная>
+ input - пользовательский ввод , пример использования input:<переменая>,<текст строки ввода> \n calc - исполнение математических операций пример использования calc <переменная с результатом>=1+1 ,операции: - отнять ,+ сложить,* умножить ,/ разделить,@ возвести в степень \n curl - получение текста из сайта также можно приравнять результат к переменной  пример использования curl <ссылка>=<переменная>
  open - чтение файлов можно приравнять результат к переменной  пример использования open <путь_до_файла>=var
  '''
 elif lang=="eng":
     HELP=''' dir - (show contents of current directory), \n cm <directory_name> - (create directory), \n var - create variables an example of using var <variable> = <its data> \n uod - launch and transfer data to the program \n color - change color \n apt - pip-based package installer (apt -p for a list of packages, you can also just enter a link to github) \n
  del <directory_name> - (delete directory). \n pwd - ticking repository \n bash - execution of bash scripts \n echo - output of text/numbers of variables \n eval - execution of simple python commands \n consol - execution of commands in the os console (windows-cmd; Linux-terminal) \n datatime - data and time \n # - comment symbol
  taskill - termination of processes \n apt - pip-based package installer (apt -p for a list of packages ) you can also just enter a link to github \n pip - pip-'command' \n system - interaction with the system (system-scan - system report) (system-off shutdown of the PC) (system -start /path/ - start programs) \n curl - obtaining text from the site can also equate the result with a variable example of using Curl <link> = <variable>
- Input - user input, example of using input: <variable>, <Epinity line text>  n Calc - execution of mathematical operations example of using Calc <variable with the result> = 1+ 1, operations: - take away,+ fold,* multiply,/ share,/ divide, ** build to degree \n curl - obtaining text from the site can also equate the result with a variable example of using Curl <link> = <variable>
+ Input - user input, example of using input: <variable>, <Epinity line text>  n Calc - execution of mathematical operations example of using Calc <variable with the result> = 1+ 1, operations: - take away,+ fold,* multiply,/ share,/ divide, @ build to degree \n curl - obtaining text from the site can also equate the result with a variable example of using Curl <link> = <variable>
  Open - File reading can equate the result with a variable example of using open <path_to_file> = Var
 '''
 else:
@@ -239,7 +240,7 @@ def admin()->bool:
         else:
             return False
     else:
-        if os.getcwd() == "C:/Windows/system32" :
+        if ctypes.windll.shell32.IsUserAnAdmin() or os.getcwd() == "C:/Windows/system32" :
             return True
         else:
             return False
@@ -622,65 +623,102 @@ while True:
             if log_actived ==1:
                 logger.debug(f"error arg нет аргументов")
         
+        #хреново работает очень
     elif command.startswith("calc "):  # calc переменная которая ровна результату=переменная1 операция переменная2 пример> calc var=1+1
         try:
             command=command.split(" ")[1]
             var_resultat=command.split("=")[0]
             partse=command.split("=")[1]
-            parts = re.findall(r'\d+|\D+',partse)
-            if partse in parts:
-                if lang =='ru':
-                    print('error неправильные данные ввода поддерживаться только цифренын операции')
-                elif lang=='eng':
-                    print('error incorrect input data is supported only by digital operations')
-                else:
-                    print('error incorrect input data is supported only by digital operations')
-                    if log_actived ==1:
-                        logger.info('не поддерживаемый язык; Unfinished language')
-            operation = parts[1]
-            var1 = parts[0]
-            var2 = parts[2]
-            # Преобразуем переменные в числа
-            num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
-            num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
-            
-            if operation == "add" or operation == "+":
-                result = num1 + num2
-                vare[var_resultat] = result
-                #print(f"Результат сложения{kast}  {result}")
-                if log_actived == 1:
-                    logger.debug(f"Сложение{kast}  {num1} + {num2} = {result} помещено в {var_resultat}")
-            elif operation == "subtract" or operation == "-":
-                result = num1 - num2
-                vare[var_resultat] = result
-                #print(f"Результат вычитания{kast}  {result}")
-                if log_actived == 1:
-                    logger.debug(f"Вычитание{kast}  {num1} - {num2} = {result} помещено в {var_resultat}")
-            elif operation == "umnohat" or operation == "*":
-                result = num1 * num2
-                vare[var_resultat] = result
-                #print(f"Результат вычитания{kast}  {result}")
-                if log_actived == 1:
-                    logger.debug(f"умножение{kast}  {num1} * {num2} = {result} помещено в {var_resultat}")
-            elif operation == "delit" or operation == "/":
-                result = num1 / num2
-                vare[var_resultat] = result
-                #print(f"Результат вычитания{kast}  {result}")
-                if log_actived == 1:
-                    logger.debug(f"деление{kast}  {num1} / {num2} = {result} помещено в {var_resultat}")
-            elif operation == "stepen" or operation == "**":
-                vare[var_resultat] = result    
-                #print(f"Результат вычитания{kast}  {result}")
-                if log_actived == 1:
-                    logger.debug(f"степеть{kast}  {num1} ** {num2} = {result} помещено в {var_resultat}")  
+#            if partse in parts:
+#                if lang =='ru':
+#                    print('error неправильные данные ввода поддерживаться только цифренын операции')
+#                elif lang=='eng':
+#                    print('error incorrect input data is supported only by digital operations')
+#                else:
+#                    print('error incorrect input data is supported only by digital operations')
+#                    if log_actived ==1:
+#                        logger.info('не поддерживаемый язык; Unfinished language')
+
+            if  '+' in partse :
+                parts=partse.split('+')
+                operation = parts[1]
+                var1 = parts[0]
+                var2 = parts[2]
+                num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
+                num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
+                print(operation,num1,num2)
+                calculetion(operation,num1,num2)
+            elif partse in '-':
+                parts=partse.split('-')
+                operation = parts[1]
+                var1 = parts[0]
+                var2 = parts[2]
+                num1 = float(vare.get(var1, var1))  # Если переменная не найдена, используем значение как число
+                num2 = float(vare.get(var2, var2))  # То же самое для второй переменной
+                calculetion(operation,num1,num2)
+            elif partse in '*':
+                parts=partse.split('*')
+                operation = parts[1]
+                var1 = parts[0]
+                var2 = parts[2]
+                num1 = float(vare.get(var1, var1))  
+                num2 = float(vare.get(var2, var2))
+                calculetion(operation,num1,num2)
+            elif partse in '/':
+                parts=partse.split('/')
+                operation = parts[1]
+                var1 = parts[0]
+                var2 = parts[2]
+                num1 = float(vare.get(var1, var1))  
+                num2 = float(vare.get(var2, var2)) 
+                calculetion(operation,num1,num2)
+            elif partse in '@':
+                parts=partse.split('@')
+                operation = parts[1]
+                var1 = parts[0]
+                var2 = parts[2]
+                num1 = float(vare.get(var1, var1))  
+                num2 = float(vare.get(var2, var2))  
+                calculetion(operation,num1,num2)
             else:
                 print(f'error operation {kast} Неизвестная операция')
                 if log_actived == 1:
                     logger.error('Неизвестная операция')
+            def calculetion(operation,num1,num2): 
+                if operation == "+":
+                    result = num1 + num2
+                    vare[var_resultat] = result
+                    if log_actived == 1:
+                        logger.debug(f"Сложение{kast}  {num1} + {num2} = {result} помещено в {var_resultat}")
+                    #print(f"Результат операции{kast}  {result}") 
+                elif operation == "-":
+                    result = num1 - num2
+                    vare[var_resultat] = result
+                    #print(f"Результат операции{kast}  {result}")
+                    if log_actived == 1:
+                        logger.debug(f"Вычитание{kast}  {num1} - {num2} = {result} помещено в {var_resultat}")
+                elif operation == "*":
+                    result = num1 * num2
+                    vare[var_resultat] = result
+                    #print(f"Результат операции{kast}  {result}")
+                    if log_actived == 1:
+                        logger.debug(f"умножение{kast}  {num1} * {num2} = {result} помещено в {var_resultat}")
+                elif operation == "/":
+                    result = num1 / num2
+                    vare[var_resultat] = result
+                    #print(f"Результат операции{kast}  {result}")
+                    if log_actived == 1:
+                        logger.debug(f"деление{kast}  {num1} / {num2} = {result} помещено в {var_resultat}")
+                elif operation == "@":
+                    vare[var_resultat] = result    
+                    #print(f"Результат операции{kast}  {result}")
+                    if log_actived == 1:
+                        logger.debug(f"степеть{kast}  {num1} ** {num2} = {result} помещено в {var_resultat}")  
         except IndexError:
             print('error arg')
             if log_actived == 1:
                 logger.debug('error arg нет аргументов')
+                
     elif command.startswith('curl') or command.startswith('adressPars'):#curl url=var
         url=command.split(' ')[1]
         if "=" in url:
@@ -723,17 +761,24 @@ while True:
             cntent=file.read()
             print(cntent)
             file.close()
+    elif command.startswith('root'):
+        if ctypes.windll.shell32.IsUserAnAdmin():
+            if __name__ == "main":
+                print('admin')
+        else:
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable,os.path.basename(__file__), None, 1) 
 
-        
     
-        if command=="":pass
+    
+    elif command=="":pass
     else:
         if lang =="ru":
-            print("error 1 команды нет")
+            print(f"error 1 {kast} команды нет")
         elif lang =="eng":
-            print("error 1 not command")
+            print(f"error 1 {kast} not command")
         else:
-            print("error 1 not command")
+            print(f"error 1 {kast} not command")
         if log_actived==1:
             logger.debug(f"not command {kast} {command}")
             
+
