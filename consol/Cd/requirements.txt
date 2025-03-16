@@ -1,5 +1,5 @@
-subprocess.run == 0.0.8
-requests == 2.32.3
-keyboard == 0.13.5
-psutil == 6.0.0
-pyfiglet ==1.0.2
+subprocess.run==0.0.8
+request ==2.32.3
+keyboar ==0.13.5
+psutil==6.0.0
+pyfiglet==1.0.2
