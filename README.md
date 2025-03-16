@@ -1,4 +1,4 @@
-.
+
 <a id="readme-top"></a>
 
 
@@ -15,12 +15,7 @@
 
   <h3 align="center">consolSH</h3>
 
-  <p align="center">
-    consol
-    <br />
-    <a href="https://github.com/xHak2215/consol"><strong>.</strong></a>
-    <br />
-  </p>
+
 </div>
 
 
