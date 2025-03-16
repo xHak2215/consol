@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "consolSH"
-version = "5.4.8"
+version = "5.4.9"
 description = "я не знаю что тут пиать"
 authors = ["Yarik mutg <@HITHELL.com>"]
 license = "MIT"
@@ -17,7 +17,7 @@ request = {version = "2.32.3" , allow-prereleases = true}
 psutil = {version = "6.0.0" , allow-prereleases = true}
 pyfiglet = {version = "1.0.2" , allow-prereleases = true}
 [tool.poetry.dev-dependencies]
-pytest = "^4.6"
+pytest = "^3.12.6"
 
 [tool.poetry.extras]
 docs = ["sphinx"]
