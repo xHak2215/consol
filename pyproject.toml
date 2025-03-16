@@ -11,7 +11,11 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-
+keyboard = {version = "0.13.5", allow-prereleases = true}
+subprocess.run = {version = "0.0.8", allow-prereleasess = true}
+request = {version = "2.32.3" , allow-prereleases = true}
+psutil = {version = "6.0.0" , allow-prereleases = true}
+pyfiglet = {version = "1.0.2" , allow-prereleases = true}
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"
 
