@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 name = "consolSH"
 version = "5.4.9"
 description = "я не знаю что тут пиать"
-authors = ["Yarik mutg <@HITHELL.com>"]
+authors = ["hit<@HITHELL.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
